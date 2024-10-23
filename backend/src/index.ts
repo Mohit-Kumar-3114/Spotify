@@ -1,11 +1,9 @@
 import express, {Request, Response} from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import router from "../Routes/auth";
-
+import songRouter from "./router/song"
+import userRouter from "./router/user"
 dotenv.config(); 
-
-
 mongoose.connect(process.env.DATABASE_URL || "")
     .then(() => {
         console.log("Connected to MongoDB");
@@ -16,13 +14,9 @@ mongoose.connect(process.env.DATABASE_URL || "")
 
 const app = express();
 app.use(express.json())
-
-
-
-
-app.get("/",(req:Request,res:Response)=>{
-    res.status(200).json("Hello World")
-})
+app.use("/api/user",userRouter)
+app.use("api/song",songRouter)
+app.listen(3000)
 
 
 
