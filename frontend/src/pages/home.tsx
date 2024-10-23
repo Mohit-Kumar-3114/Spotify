@@ -16,8 +16,8 @@ const Home=()=>{
         <button className="bg-white rounded-full h-12 w-28 text-inherit font-bold"> Log in</button>
         </div>
         </div>
-        <div className="h-full w-screen">
-            <Song/>
+        <div className="h-full w-full">
+        <Song/>
         </div>
         </div>
 )
