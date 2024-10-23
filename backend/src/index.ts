@@ -1,4 +1,4 @@
-import express, {Request, Response} from "express";
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
@@ -12,15 +12,9 @@ mongoose.connect(process.env.DATABASE_URL||"")
 
 const app = express();
 app.use(express.json())
-
-
-
-
-app.get("/",(req:Request,res:Response)=>{
-    res.status(200).json("Hello World")
-})
-
-
+import userRoutes from "./router/user";
+import songRouter from "./router/song"
+app.use('/api/users', userRoutes); 
 
 
 app.listen(3000,()=>{

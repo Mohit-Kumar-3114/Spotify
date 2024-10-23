@@ -15,9 +15,8 @@ mongoose_1.default.connect(process.env.DATABASE_URL || "")
 });
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.get("/", (req, res) => {
-    res.json("Hello World");
-});
+const user_1 = __importDefault(require("./router/user"));
+app.use('/api/users', user_1.default);
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });

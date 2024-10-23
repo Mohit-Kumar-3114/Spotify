@@ -1,4 +1,4 @@
-const Signin = () => {
+const Signup = () => {
     return (
       <div className="bg-gradient-to-b from-neutral-800 via-neutral-900 to-neutral-950">
         <div className="flex justify-center items-center h-screen">
@@ -12,7 +12,7 @@ const Signin = () => {
             </div>
   
             <h2 className="text-3xl font-bold text-white text-center mb-4">
-              Sign In to Spotify
+              Sign Up to Spotify
             </h2>
   
      
@@ -32,7 +32,7 @@ const Signin = () => {
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-300"
                 >
-                  Email
+                  Email 
                 </label>
                 <input
                   type="text"
@@ -66,7 +66,7 @@ const Signin = () => {
                   type="submit"
                   className="w-full py-3 bg-green-500 text-white rounded-full font-semibold text-lg hover:bg-green-600 focus:ring-4 focus:ring-green-500 focus:ring-opacity-50"
                 >
-                  Sign In
+                  Sign Up
                 </button>
               </div>
             </form>
@@ -76,5 +76,5 @@ const Signin = () => {
     );
   };
   
-  export default Signin;
+  export default Signup;
   
