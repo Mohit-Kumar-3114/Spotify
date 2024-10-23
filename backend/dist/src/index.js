@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const auth_1 = __importDefault(require("../Routes/auth"));
+const song_1 = __importDefault(require("./router/song"));
+const user_1 = __importDefault(require("./router/user"));
 dotenv_1.default.config();
 mongoose_1.default.connect(process.env.DATABASE_URL || "")
     .then(() => {
@@ -17,10 +18,6 @@ mongoose_1.default.connect(process.env.DATABASE_URL || "")
 });
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.get("/", (req, res) => {
-    res.status(200).json("Hello World");
-});
-app.use("/api/auth", auth_1.default);
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
-});
+app.use("/api/user", user_1.default);
+app.use("api/song", song_1.default);
+app.listen(3000);
