@@ -19,5 +19,9 @@ const userSchema = new Schema<IUser>({
 
 const User = mongoose.model<IUser>('User', userSchema);
 
+<<<<<<< HEAD
 export default User;
 
+=======
+export default User;
+>>>>>>> addbe6acda4375b2f340f2d9e45b74a5bd4f1960
