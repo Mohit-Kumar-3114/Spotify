@@ -21,7 +21,7 @@ const signup = async function(req: Request, res: Response) {
         const user = new User({ email, password: hashedPassword });
         await user.save(); 
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token: token,id: user._id });
     } catch (error) {
         console.error('Error during signup:', error);
         res.status(500).json({ message: 'Internal server error.' });
@@ -46,7 +46,7 @@ const signin= async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid email or password.' });
         }
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token: token,id: user._id });
     } catch (error) {
         console.error('Error during signin:', error);
         res.status(500).json({ message: 'Internal server error.' });

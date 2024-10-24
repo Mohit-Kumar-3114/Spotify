@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import songRouter from "./router/song"
 import userRouter from "./router/user"
+import cors from "cors"
 dotenv.config(); 
 mongoose.connect(process.env.DATABASE_URL || "")
     .then(() => {
@@ -14,9 +15,11 @@ mongoose.connect(process.env.DATABASE_URL || "")
 
 const app = express();
 app.use(express.json())
+app.use(cors())
 app.use("/api/user",userRouter)
-app.use("api/song",songRouter)
-app.listen(3000)
-
+app.use("/api/song",songRouter)
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
+});
 
 

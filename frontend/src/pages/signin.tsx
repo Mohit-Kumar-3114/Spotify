@@ -1,4 +1,31 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+const url=import.meta.env.VITE_BACKEND_URL
+
 const Signin = () => {
+  const navigate=useNavigate()
+  const [postInputs , setPostInputs] = useState({
+    password:"",
+    email:""
+   })
+   async function handleRequest(e: React.FormEvent<HTMLFormElement>){
+   try{
+     e.preventDefault()
+     const response=await axios.post(`${url}/api/user/signin`, postInputs)
+     const jwt=response.data.token
+     const id=response.data.id
+     localStorage.setItem("token",jwt)
+     localStorage.setItem("id",id)
+     console.log('Token stored:', jwt);
+     console.log(id)
+      setTimeout(() => {
+       navigate("/dashboard");
+     }, 1000);
+   } catch(error){
+     alert("Something went wrong")
+   }
+  }
     return (
       <div className="bg-gradient-to-b from-neutral-800 via-neutral-900 to-neutral-950">
         <div className="flex justify-center items-center h-screen">
@@ -26,7 +53,7 @@ const Signin = () => {
   <div className=" border-t border-neutral-600 my-6 ">
     
   </div>
-            <form className="space-y-4 mt-4">
+            <form className="space-y-4 mt-4" onSubmit={handleRequest}>
               <div>
                 <label
                   htmlFor="username"
@@ -40,7 +67,11 @@ const Signin = () => {
                   name="username"
                   className="mt-1 block w-full px-4 py-2 rounded-md bg-gray-700 text-gray-100 border-none focus:ring-green-500 focus:ring-2 focus:outline-none"
                   placeholder="Email"
-                  required
+                  onChange={(e)=>{
+                    setPostInputs({
+                      ...postInputs,
+                      email:e.target.value
+                    })}}
                 />
               </div>
   
@@ -57,7 +88,12 @@ const Signin = () => {
                   name="password"
                   className="mt-1 block w-full px-4 py-2 rounded-md bg-gray-700 text-gray-100 border-none focus:ring-green-500 focus:ring-2 focus:outline-none"
                   placeholder="Password"
-                  required
+                  onChange={(e)=>{
+                    setPostInputs({
+                      ...postInputs,
+                      password:e.target.value
+                    })
+                  }}
                 />
               </div>
   

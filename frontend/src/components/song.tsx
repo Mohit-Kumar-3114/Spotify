@@ -1,20 +1,37 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+const url=import.meta.env.VITE_BACKEND_URL
+interface Song {
+    title: string;
+    url: string;
+    id:string
+}
+
 const Song = () => {
-    const songs = [
-        <iframe width="300" height="300" src="https://www.youtube.com/embed/5VubhvUQaD8?si=t6RO9X8Gu98-3NvT" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>,
-        <iframe width="300" height="300" src="https://www.youtube.com/embed/3s1jfsOrwx8?si=huYNWFcTH70c1bNQ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>,
-        <iframe width="300" height="300" src="https://www.youtube.com/embed/BEI63kGhWaE?si=b5qTdkqaokFs7fDl" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>,
-        <iframe width="300" height="300" src="https://www.youtube.com/embed/Mk132xeCnMQ?si=Y0HPgZKwkv6wAhzT" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>,
-    ];
+    const [songs, setSongs] = useState<Song[]>([]);
+    useEffect(() => {
+        const fetchSongs = async () => {
+            try {
+                const response = await axios.get(`${url}/api/song/all`); 
+                console.log(response.data.songs)
+                setSongs(response.data.songs);
+            } catch (error) {
+                console.error("Error fetching songs:", error);
+            }
+        };
+        fetchSongs();
+    }, []);
 
     return (
         <div className="grid grid-cols-3 gap-6 p-6">
             {songs.map((song, index) => (
-                <div key={index} className="flex justify-center ">
-                    {song}
+                <div key={index} className="flex flex-col items-center">
+                    <span className="text-2xl text-white">{(song.title).toUpperCase()}</span>
+                    <video width="300" height="300" src={song.url} title={song.title} controls ></video>
                 </div>
             ))}
         </div>
     );
-}
+};
 
 export default Song;

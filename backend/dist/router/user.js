@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const { signin, signup } = require("../controller/user");
+const user_1 = require("../controller/user");
 const router = express_1.default.Router();
-router.post("/signin", signin);
-router.post("/signup", signup);
+//@ts-ignore
+router.post("/signin", user_1.signin);
+//@ts-ignore
+router.post("/signup", user_1.signup);
 exports.default = router;

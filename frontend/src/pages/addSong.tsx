@@ -3,22 +3,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const url=import.meta.env.VITE_BACKEND_URL
 
-const Signup = () => {
+const AddSong = () => {
+  const id=localStorage.getItem("id");
+  console.log(id)
   const navigate=useNavigate()
   const [postInputs , setPostInputs] = useState({
-    password:"",
-    email:""
+    title:"",
+    url:"",
+    userId:id
    })
    async function handleRequest(e: React.FormEvent<HTMLFormElement>){
    try{
      e.preventDefault()
-     const response=await axios.post(`${url}/api/user/signup`, postInputs)
-     const jwt=response.data.token
-     const id=response.data.id
-     localStorage.setItem("token",jwt)
-     localStorage.setItem("id",id)
-     console.log('Token stored:', jwt);
-     console.log(id)
+     const response=await axios.post(`${url}/api/song/addsong`, postInputs)
+     console.log(response)
       setTimeout(() => {
        navigate("/dashboard");
      }, 1000);
@@ -39,27 +37,15 @@ const Signup = () => {
             </div>
   
             <h2 className="text-3xl font-bold text-white text-center mb-4">
-              Sign Up to Spotify
+              Add Your Song
             </h2>
-  
-     
-            <div className="mt-4">
-              <div className="flex flex-col space-y-3 mt-4">
-          <button className="w-full py-2 bg-neutral-800 text-white rounded-full font-semibold hover:bg-neutral-700 flex items-center justify-center mt-2 "><img className="mr-2" width="20" height="20" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo"/>Continue with Google</button>
-          <button className="w-full py-2 bg-neutral-800 text-white rounded-full font-semibold hover:bg-neutral-700 flex items-center justify-center mt-2 "><img className="mr-2"width="20" height="20" src="https://img.icons8.com/color/48/facebook-new.png" alt="facebook-new"/>Continue with Facebook</button>
-
-              </div>
-            </div>
-  <div className=" border-t border-neutral-600 my-6 ">
-    
-  </div>
             <form className="space-y-4 mt-4" onSubmit={handleRequest}>
               <div>
                 <label
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-300"
                 >
-                  Email
+                  Title
                 </label>
                 <input
                   type="text"
@@ -70,7 +56,7 @@ const Signup = () => {
                   onChange={(e)=>{
                     setPostInputs({
                       ...postInputs,
-                      email:e.target.value
+                      title:e.target.value
                     })}}
                 />
               </div>
@@ -80,7 +66,7 @@ const Signup = () => {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-300"
                 >
-                  Password
+                  Url
                 </label>
                 <input
                   type="password"
@@ -91,7 +77,7 @@ const Signup = () => {
                   onChange={(e)=>{
                     setPostInputs({
                       ...postInputs,
-                      password:e.target.value
+                      url:e.target.value
                     })
                   }}
                 />
@@ -102,7 +88,7 @@ const Signup = () => {
                   type="submit"
                   className="w-full py-3 bg-green-500 text-white rounded-full font-semibold text-lg hover:bg-green-600 focus:ring-4 focus:ring-green-500 focus:ring-opacity-50"
                 >
-                  Sign Up
+                  Add
                 </button>
               </div>
             </form>
@@ -112,5 +98,5 @@ const Signup = () => {
     );
   };
   
-  export default Signup;
+  export default AddSong;
   

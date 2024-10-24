@@ -31,7 +31,7 @@ const signup = function (req, res) {
             const user = new userSchema_1.default({ email, password: hashedPassword });
             yield user.save();
             const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
-            res.json({ token });
+            res.json({ token: token, id: user._id });
         }
         catch (error) {
             console.error('Error during signup:', error);
@@ -55,7 +55,7 @@ const signin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json({ message: 'Invalid email or password.' });
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token: token, id: user._id });
     }
     catch (error) {
         console.error('Error during signin:', error);

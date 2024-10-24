@@ -1,6 +1,7 @@
 import  express  from "express";
 const router=express.Router();
-import { addSong } from "../controller/song";
+import { addSong , getSong} from "../controller/song";
 //@ts-ignore
-router.post("/addSong",addSong);
+router.post("/addsong",addSong);
+router.get('/all', getSong);
 export default router;

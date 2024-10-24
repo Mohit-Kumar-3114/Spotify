@@ -30,5 +30,5 @@ const videoLinkSchema = new mongoose_1.Schema({
     addedAt: { type: Date, default: Date.now },
     user: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User', required: true }
 });
-const VideoLink = mongoose_1.default.model('VideoLink', videoLinkSchema);
-exports.default = VideoLink;
+const Song = mongoose_1.default.model('VideoLink', videoLinkSchema);
+exports.default = Song;

@@ -6,17 +6,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const song_1 = __importDefault(require("./router/song"));
+const user_1 = __importDefault(require("./router/user"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 mongoose_1.default.connect(process.env.DATABASE_URL || "")
     .then(() => {
     console.log("Connected to MongoDB");
-}).catch((e) => {
-    console.log(`error is ${e}`);
+})
+    .catch((e) => {
+    console.log(`Error connecting to MongoDB: ${e}`);
 });
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const user_1 = __importDefault(require("./router/user"));
-app.use('/api/users', user_1.default);
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+app.use((0, cors_1.default)());
+app.use("/api/user", user_1.default);
+app.use("/api/song", song_1.default);
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
 });
